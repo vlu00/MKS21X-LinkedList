@@ -1,19 +1,19 @@
 public class Node{
-  private int data;
+  private Integer data;
   private Node next, prev;
 
-  public Node(int d) {
+  public Node(Integer d) {
     data = d;
     prev = null;
     next = null;
   }
-  public Node (Node p, int d, Node n) {
+  public Node (Node p, Integer d, Node n) {
     prev = p;
     data = d;
     next = n;
   }
 
-  public void setData(int value) {
+  public void setData(Integer value) {
     data = value;
   }
 
@@ -25,7 +25,7 @@ public class Node{
     prev = name;
   }
 
-  public int getData() {
+  public Integer getData() {
     return data;
   }
 
@@ -35,5 +35,11 @@ public class Node{
 
   public Node getPrev() {
     return prev;
+  }
+
+  public String toString() {
+    String s = "";
+    s = s + data;
+    return s;
   }
 }
