@@ -40,14 +40,6 @@ public class MyLinkedList {
         current = current.getNext();
       }
     }
-      /*if (!(current.getNext().equals(null))) {
-        s = s + current.getData();
-        current = current.getNext();
-      }
-      else {
-        s = s + current.getData();
-      }
-    } */
     return s+"]";
   }
 }

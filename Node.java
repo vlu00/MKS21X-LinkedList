@@ -40,6 +40,7 @@ public class Node{
   public String toString() {
     String s = "";
     s = s + data;
+    //s = s + prev.getData() + " " + data + " " + next.getData();
     return s;
   }
 }
