@@ -16,10 +16,12 @@ public class MyLinkedList {
     if (size() == 0) {
       Node A = new Node (null, value, end);
       start = A;
+      end = A;
     }
     else {
       Node A = new Node(end, value, null);
       end.setNext(A);
+      end = A;
     }
     size++;
     return true;
