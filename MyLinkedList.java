@@ -4,7 +4,7 @@ public class MyLinkedList {
 
   public MyLinkedList() {
     size = 0;
-    start = null;
+    start= null;
     end = null;
   }
 
@@ -14,7 +14,7 @@ public class MyLinkedList {
 
   public boolean add (Integer value) {
     if (size() == 0) {
-      Node A = new Node (end, value, null);
+      Node A = new Node (null, value, end);
       start = A;
     }
     else {
