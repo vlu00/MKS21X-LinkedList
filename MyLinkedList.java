@@ -28,17 +28,26 @@ public class MyLinkedList {
   }
 
   public String toString() {
-    String s = "";
+    String s = "[";
     Node current = start;
     for (int i = 0; i < size(); i++) {
-      if (!(current.getNext().equals(null))) {
+      if (!(current.equals(null)) && !(current.equals(end))) {
+        s = s + current.toString() + ", ";
+        current = current.getNext();
+      }
+      else if (!(current.equals(null))) {
+        s = s + current.toString();
+        current = current.getNext();
+      }
+    }
+      /*if (!(current.getNext().equals(null))) {
         s = s + current.getData();
         current = current.getNext();
       }
       else {
         s = s + current.getData();
       }
-    }
-    return s;
+    } */
+    return s+"]";
   }
 }
