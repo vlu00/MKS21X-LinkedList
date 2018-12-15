@@ -52,6 +52,17 @@ public class MyLinkedList {
     return old;
   }
 
+  public boolean contains(Integer value) {
+    Node current = start;
+    for (int i = 0; i < length(); i++) {
+      if (current.getData() == value) {
+        return true;
+      }
+      current = current.Next();
+    }
+    return false;
+  }
+
   public String toString() {
     String s = "[";
     Node current = start;
