@@ -8,128 +8,147 @@ public class MyLinkedList {
     end = null;
   }
 
-  public int length() {
+  public int size() {
     return length;
   }
-
+  /**Adds a new element to the end of the list.
+    *@param value  the element that will be added.
+    */
   public boolean add (Integer value) {
-    if (length() == 0) {
+    if (size() == 0) {
       Node A = new Node (null, value, end);
-      start = A;
+      start = A; //the start and end are the same
       end = A;
     }
     else {
       Node A = new Node(end, value, null);
-      end.setNext(A);
+      end.setNext(A); //the end changes
       end = A;
     }
     length++;
     return true;
   }
-
+  /**Finds the Node at a particular index.
+    *@param index  the index of the node you're trying to find.
+    */
   private Node getNthNode (int index) {
-    Node x = start;
-    for (;index > 0; index--) {
-      x = x.Next();
+    Node x = start; //starting with the first node
+    for (;index > 0; index--) { //until index is reached
+      x = x.next(); //move onto the next node
     }
     return x;
   }
-
+  /**Returns Integer at particular index.
+    *@param index index that you would like to check.
+    */
   public Integer get(int index) {
-    if (index < 0 || index > length()-1) {
+    if (index < 0 || index > size()-1) {
       throw new IndexOutOfBoundsException("Index is out of range");
     }
-    return getNthNode(index).getData();
+    return getNthNode(index).getData(); //return the Integer at the nth Node
   }
-
+  /**Replaces Integer at index with new value.
+    *@param index the index of the element you're replacing
+    *@param value the new value with which you are replacing
+    */
   public Integer set (int index, Integer value) {
-    if (index < 0 || index > length()-1) {
+    if (index < 0 || index > size()-1) {
       throw new IndexOutOfBoundsException("Index is out of range");
     }
     Node x = getNthNode(index);
-    Integer old = x.getData();
-    x.setData(value);
-    return old;
+    Integer old = x.getData(); //save old Integer
+    x.setData(value); //replace Integer
+    return old; //return old Integer
   }
-
+  /**Checks if list has a value.
+    *@param value  the element you're checking if the list has
+    */
   public boolean contains(Integer value) {
-    Node current = start;
-    for (int i = 0; i < length(); i++) {
-      if (current.getData() == value) {
-        return true;
+    Node current = start; //start with first node
+    for (int i = 0; i < size(); i++) {
+      if (current.getData().equals(value)) { //if the node is equal to the value
+        return true; //the list contains the value
       }
-      current = current.Next();
+      current = current.next(); //move onto next node
     }
-    return false;
+    return false; //otherwise list does not contain value
   }
-
+  /**Finds index of value in a list.
+    *Returns index if value is in list. Otherwise returns -1.
+    *@param value  the element that you're finding the index of.
+    */
   public int indexOf(Integer value) {
-    if (contains(value)) {
-      Node current = start;
-      for (int i = 0; i < length(); i++) {
-        if (current.getData() == value) {
-          return i;
+    if (contains(value)) { //if the list has the value. find index
+      Node current = start; //start with first node
+      for (int i = 0; i < size(); i++) {
+        if (current.getData().equals(value)) { //if the node is equal to the value
+          return i; //return the node's index
         }
-        current = current.Next();
+        current = current.next(); //check next node
       }
     }
-    return -1;
+    return -1; //if false return -1
   }
-
+  /**Adds a value to a list at a specific index and shifts everything after the index to the right.
+    *@param index index of where new value will be placed
+    *@param value value of new element
+    */
   public void add (int index, Integer value) {
-    if (index < 0 || index > length()) {
+    if (index < 0 || index > size()) {
       throw new IndexOutOfBoundsException("Index is out of range");
     }
-    if (length() == 0) {
-      add(value);
+    if (size() == 0) {
+      add(value); //if the list is empty, just add the element
     }
-    else {
-      if (index == 0) {
-        Node x = getNthNode(index);
+    else { //if list has at least 1 element
+      if (index == 0) { //if you're adding to the start
+        Node x = getNthNode(index); //current first node
         Node A = new Node(null, value, x);
-        x.setPrev(A);
-        start = A;
+        x.setPrev(A); //make the current first node's previous the new node
+        start = A; //change the start to the new element
       }
-      else if (index == length()) {
-        Node x = getNthNode(index-1);
+      else if (index == size()) { //if you're adding to the end
+        Node x = getNthNode(index-1); //current last node
         Node A = new Node(x, value, null);
-        x.setNext(A);
-        end = A;
+        x.setNext(A);//make the current last node's next the new node
+        end = A; //cjange the end to the new element
       }
       else {
-        Node x = getNthNode(index);
-        Node y = getNthNode(index-1);
+        Node x = getNthNode(index); //node before new node
+        Node y = getNthNode(index-1); //node after new node
         Node A = new Node(y, value, x);
-        x.setPrev(A);
-        y.setNext(A);
+        x.setPrev(A); //link the node before new node and new node
+        y.setNext(A); //link the node after new node and new node
       }
       length ++;
     }
   }
-
-  public void baseRemove (int index) {
-    Node x = getNthNode(index);
-    if (length() == 1) {
-      start = null;
-      end = null;
+  /**Removes element at particular index.
+    *@param index  index of element you're removing
+    */
+  private void baseRemove (int index) { //both removes will have this
+    Node x = getNthNode(index); //node you are removing
+    if (size() == 1) { //if list only has 1 element (one you're removing)
+      start = null;//no start
+      end = null;//no end
     }
-    else {
-      if (index == 0) {
-        Node y = getNthNode(index+1);
-        y.setPrev(null);
+    else { //if list is longer than 1
+      if (index == 0) { //if removing the start
+        Node y = getNthNode(index+1); //second node in current list
+        y.setPrev(null); //disconnect the first node from the second node
         x.setNext(null);
-        start = y;
+        start = y; //make the second node the start
       }
-      else if (index == length()-1) {
-        Node y = getNthNode(index-1);
-        x.setPrev(null);
+      else if (index == size()-1) { //if removing the end
+        Node y = getNthNode(index-1); //second to last node
+        x.setPrev(null); //disconnect the last node from the second to last node
         y.setNext(null);
-        end = y;
+        end = y; //the end the second to last node
       }
       else {
-        Node y = getNthNode(index-1);
-        Node z = getNthNode(index+1);
-        x.setPrev(null);
+        Node y = getNthNode(index-1); //node before
+        Node z = getNthNode(index+1); //node after
+        x.setPrev(null); //connect the node before and node after node bing removed
         x.setNext(null);
         y.setNext(z);
         z.setPrev(y);
@@ -137,46 +156,45 @@ public class MyLinkedList {
     }
     length--;
   }
-
+  /**Removes an element based on index and returns the removed value.
+    *@param index index of element you're removing
+    */
   public Integer remove (int index) {
-    if (index < 0 || index > length()-1) {
+    if (index < 0 || index > size()-1) {
       throw new IndexOutOfBoundsException("Index is out of range");
     }
-    Node x = getNthNode(index);
-    Integer old = x.getData();
-    baseRemove(index);
-    return old;
+    Node x = getNthNode(index); //node being removed
+    Integer old = x.getData(); //save value being removed
+    baseRemove(index); //remove node
+    return old; //return removed value
   }
-
+  /**Removes first instance of given value.
+    *Returns false if the value is not in list.
+    *@param value value of element you're removing
+    */
   public boolean remove(Integer value) {
-    if (!(contains(value))) {
+    if (!(contains(value))) { //if the list does not have the value
       return false;
     }
     else {
-      int index = indexOf(value);
-      baseRemove(index);
+      int index = indexOf(value); //find index of value
+      baseRemove(index); //remove the node at the index
     }
     return true;
   }
-
+  /**Returns list of nodes as a string.
+    */
   public String toString() {
     String s = "[";
     Node current = start;
-    /*
-    while (!(current.Next().equals(null))) {
-        s = s + current.toString() + ", ";
-        current = current.Next();
-    }
-    s = s + current.toString();
-    */
-    for (int i = 0; i < length(); i++) {
-      if (!(current.equals(null)) && !(current.equals(end))) {
-        s = s + current.toString() + ", ";
-        current = current.Next();
+    for (int i = 0; i < size(); i++) {
+      if (!(current.equals(null)) && !(current.equals(end))) { //for any node that is not the end
+        s = s + current.toString() + ", "; //include a comma afterwards
+        current = current.next(); //move onto next node
       }
-      else if (!(current.equals(null))) {
-        s = s + current.toString();
-        current = current.Next();
+      else { //for the last node
+        s = s + current.toString(); //do not include a comma
+        current = current.next();
       }
     }
     return s+"]";
