@@ -27,12 +27,16 @@ public class MyLinkedList {
     return true;
   }
 
-  private Node nth (int index) {
+  private Node getNthNode (int index) {
     Node x = start;
     for (;index > 0; index--) {
       x = x.Next();
     }
     return x;
+  }
+
+  public Integer get(int index) {
+    return getNthNode(index).getData();
   }
 
   public String toString() {
