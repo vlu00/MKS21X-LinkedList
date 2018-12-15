@@ -78,26 +78,31 @@ public class MyLinkedList {
     if (index < 0 || index > length()) {
       throw new IndexOutOfBoundsException("Index is out of range");
     }
-    if (index == 0) {
-      Node x = getNthNode(index);
-      Node A = new Node(null, value, x);
-      x.setPrev(A);
-      start = A;
-    }
-    else if (index == length()) {
-      Node x = getNthNode(index-1);
-      Node A = new Node(x, value, null);
-      x.setNext(A);
-      end = A;
+    if (length() == 0) {
+      add(value);
     }
     else {
-      Node x = getNthNode(index);
-      Node y = getNthNode(index-1);
-      Node A = new Node(y, value, x);
-      x.setPrev(A);
-      y.setNext(A);
+      if (index == 0) {
+        Node x = getNthNode(index);
+        Node A = new Node(null, value, x);
+        x.setPrev(A);
+        start = A;
+      }
+      else if (index == length()) {
+        Node x = getNthNode(index-1);
+        Node A = new Node(x, value, null);
+        x.setNext(A);
+        end = A;
+      }
+      else {
+        Node x = getNthNode(index);
+        Node y = getNthNode(index-1);
+        Node A = new Node(y, value, x);
+        x.setPrev(A);
+        y.setNext(A);
+      }
+      length ++;
     }
-    length ++;
   }
 
   public Integer remove (int index) {
