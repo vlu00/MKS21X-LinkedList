@@ -63,19 +63,27 @@ public class MyLinkedList {
     return false;
   }
 
+  public int indexOf(Integer value) {
+    Node current = start;
+    for (int i = 0; i < length(); i++) {
+      if (current.getData() == value) {
+        return i;
+      }
+      current = current.Next();
+    }
+    return -1; 
+  }
+
   public String toString() {
     String s = "[";
     Node current = start;
-    /*while (!(current.equals(null))) {
-      if (!(current.equals(end))) {
+    /*
+    while (!(current.Next().equals(null))) {
         s = s + current.toString() + ", ";
-      }
-      else {
-        s = s + current.toString();
-      }
-      current = current.Next();
-    }*/
-
+        current = current.Next();
+    }
+    s = s + current.toString();
+    */
     for (int i = 0; i < length(); i++) {
       if (!(current.equals(null)) && !(current.equals(end))) {
         s = s + current.toString() + ", ";
