@@ -1,19 +1,19 @@
 public class MyLinkedList {
-  private int size;
+  private int length;
   private Node start, end;
 
   public MyLinkedList() {
-    size = 0;
+    length = 0;
     start= null;
     end = null;
   }
 
-  public int size() {
-    return size;
+  public int length() {
+    return length;
   }
 
   public boolean add (Integer value) {
-    if (size() == 0) {
+    if (length() == 0) {
       Node A = new Node (null, value, end);
       start = A;
       end = A;
@@ -23,21 +23,39 @@ public class MyLinkedList {
       end.setNext(A);
       end = A;
     }
-    size++;
+    length++;
     return true;
+  }
+
+  private Node nth (int index) {
+    Node x = start;
+    for (;index > 0; index--) {
+      x = x.Next();
+    }
+    return x;
   }
 
   public String toString() {
     String s = "[";
     Node current = start;
-    for (int i = 0; i < size(); i++) {
+    /*while (!(current.equals(null))) {
+      if (!(current.equals(end))) {
+        s = s + current.toString() + ", ";
+      }
+      else {
+        s = s + current.toString();
+      }
+      current = current.Next();
+    }*/
+
+    for (int i = 0; i < length(); i++) {
       if (!(current.equals(null)) && !(current.equals(end))) {
         s = s + current.toString() + ", ";
-        current = current.getNext();
+        current = current.Next();
       }
       else if (!(current.equals(null))) {
         s = s + current.toString();
-        current = current.getNext();
+        current = current.Next();
       }
     }
     return s+"]";
