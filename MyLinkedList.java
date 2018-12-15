@@ -64,12 +64,14 @@ public class MyLinkedList {
   }
 
   public int indexOf(Integer value) {
-    Node current = start;
-    for (int i = 0; i < length(); i++) {
-      if (current.getData() == value) {
-        return i;
+    if (contains(value)) {
+      Node current = start;
+      for (int i = 0; i < length(); i++) {
+        if (current.getData() == value) {
+          return i;
+        }
+        current = current.Next();
       }
-      current = current.Next();
     }
     return -1;
   }
@@ -139,6 +141,50 @@ public class MyLinkedList {
     }
     length --;
     return old;
+  }
+
+  public boolean remove(Integer value) {
+    if (!(contains(value))) {
+      return false;
+    }
+    else {
+      int index = indexOf(value);
+      Node x = getNthNode(index);
+      if (length() == 1) {
+        start = null;
+        end = null;
+      }
+      else {
+        if (length() == 1) {
+          start = null;
+          end = null;
+        }
+        else {
+          if (index == 0) {
+            Node y = getNthNode(index+1);
+            y.setPrev(null);
+            x.setNext(null);
+            start = y;
+          }
+          else if (index == length()-1) {
+            Node y = getNthNode(index-1);
+            x.setPrev(null);
+            y.setNext(null);
+            end = y;
+          }
+          else {
+            Node y = getNthNode(index-1);
+            Node z = getNthNode(index+1);
+            x.setPrev(null);
+            x.setNext(null);
+            y.setNext(z);
+            z.setPrev(y);
+          }
+        }
+      }
+    length --;
+  }
+    return true;
   }
 
   public String toString() {
