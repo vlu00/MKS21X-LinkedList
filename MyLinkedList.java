@@ -37,14 +37,14 @@ public class MyLinkedList {
 
   public Integer get(int index) {
     if (index < 0 || index > length()-1) {
-      throw new IllegalArgumentException("Index is out of range");
+      throw new IndexOutOfBoundsException("Index is out of range");
     }
     return getNthNode(index).getData();
   }
 
   public Integer set (int index, Integer value) {
     if (index < 0 || index > length()-1) {
-      throw new IllegalArgumentException("Index is out of range");
+      throw new IndexOutOfBoundsException("Index is out of range");
     }
     Node x = getNthNode(index);
     Integer old = x.getData();
@@ -71,7 +71,19 @@ public class MyLinkedList {
       }
       current = current.Next();
     }
-    return -1; 
+    return -1;
+  }
+
+  public void add (int index, Integer value) {
+    if (index < 0 || index > length()-1) {
+      throw new IndexOutOfBoundsException("Index is out of range");
+    }
+    Node x = getNthNode(index);
+    Node y = getNthNode(index-1);
+    Node A = new Node(y, value, x);
+    x.setPrev(A);
+    y.setNext(A);
+    length++;
   }
 
   public String toString() {
