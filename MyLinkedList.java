@@ -83,14 +83,12 @@ public class MyLinkedList {
       Node A = new Node(null, value, x);
       x.setPrev(A);
       start = A;
-      length++;
     }
     else if (index == length()) {
       Node x = getNthNode(index-1);
       Node A = new Node(x, value, null);
       x.setNext(A);
       end = A;
-      length++;
     }
     else {
       Node x = getNthNode(index);
@@ -98,8 +96,38 @@ public class MyLinkedList {
       Node A = new Node(y, value, x);
       x.setPrev(A);
       y.setNext(A);
-      length++;
     }
+    length ++;
+  }
+
+  public Integer remove (int index) {
+    if (index < 0 || index > length()) {
+      throw new IndexOutOfBoundsException("Index is out of range");
+    }
+    Node x = getNthNode(index);
+    Integer old = x.getData();
+    if (index == 0) {
+      Node y = getNthNode(index+1);
+      y.setPrev(null);
+      x.setNext(null);
+      start = y;
+    }
+    else if (index == length()-1) {
+      Node y = getNthNode(index-1);
+      x.setPrev(null);
+      y.setNext(null);
+      end = y;
+    }
+    else {
+      Node y = getNthNode(index-1);
+      Node z = getNthNode(index+1);
+      x.setPrev(null);
+      x.setNext(null);
+      y.setNext(z);
+      z.setPrev(y);
+    }
+    length --;
+    return old;
   }
 
   public String toString() {
