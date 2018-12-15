@@ -107,12 +107,8 @@ public class MyLinkedList {
     }
   }
 
-  public Integer remove (int index) {
-    if (index < 0 || index > length()-1) {
-      throw new IndexOutOfBoundsException("Index is out of range");
-    }
+  public void baseRemove (int index) {
     Node x = getNthNode(index);
-    Integer old = x.getData();
     if (length() == 1) {
       start = null;
       end = null;
@@ -139,7 +135,16 @@ public class MyLinkedList {
         z.setPrev(y);
       }
     }
-    length --;
+    length--;
+  }
+
+  public Integer remove (int index) {
+    if (index < 0 || index > length()-1) {
+      throw new IndexOutOfBoundsException("Index is out of range");
+    }
+    Node x = getNthNode(index);
+    Integer old = x.getData();
+    baseRemove(index);
     return old;
   }
 
@@ -149,41 +154,8 @@ public class MyLinkedList {
     }
     else {
       int index = indexOf(value);
-      Node x = getNthNode(index);
-      if (length() == 1) {
-        start = null;
-        end = null;
-      }
-      else {
-        if (length() == 1) {
-          start = null;
-          end = null;
-        }
-        else {
-          if (index == 0) {
-            Node y = getNthNode(index+1);
-            y.setPrev(null);
-            x.setNext(null);
-            start = y;
-          }
-          else if (index == length()-1) {
-            Node y = getNthNode(index-1);
-            x.setPrev(null);
-            y.setNext(null);
-            end = y;
-          }
-          else {
-            Node y = getNthNode(index-1);
-            Node z = getNthNode(index+1);
-            x.setPrev(null);
-            x.setNext(null);
-            y.setNext(z);
-            z.setPrev(y);
-          }
-        }
-      }
-    length --;
-  }
+      baseRemove(index);
+    }
     return true;
   }
 
