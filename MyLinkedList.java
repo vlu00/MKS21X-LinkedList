@@ -36,7 +36,20 @@ public class MyLinkedList {
   }
 
   public Integer get(int index) {
+    if (index < 0 || index > length()-1) {
+      throw new IllegalArgumentException("Index is out of range");
+    }
     return getNthNode(index).getData();
+  }
+
+  public Integer set (int index, Integer value) {
+    if (index < 0 || index > length()-1) {
+      throw new IllegalArgumentException("Index is out of range");
+    }
+    Node x = getNthNode(index);
+    Integer old = x.getData();
+    x.setData(value);
+    return old;
   }
 
   public String toString() {
