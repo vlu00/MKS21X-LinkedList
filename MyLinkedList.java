@@ -175,6 +175,17 @@ public class MyLinkedList {
     }
     return true;
   }
+  /**Links two lists together by adding the elements of the second list to the end of the first list.
+    *@param other Second list that is added to the end of the first
+    */
+  public void extend(MyLinkedList other) {
+    this.end.setNext(other.start); //links two lists
+    other.start.setPrev(this.end);
+    this.end = other.end; //changes end of first list
+    this.length = this.length + other.length; //changes size of first list
+    other.length = 0; //length of second list is 0
+  }
+
   /**Returns list of nodes as a string.
     */
   public String toString() {
