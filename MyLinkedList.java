@@ -126,7 +126,7 @@ public class MyLinkedList {
     }
     else { //if list is longer than 1
       if (index == 0) { //if removing the start
-        Node y = x.prev();//second node in current list
+        Node y = x.next();//second node in current list
         y.setPrev(null); //disconnect the first node from the second node
         x.setNext(null);
         start = y; //make the second node the start
@@ -179,11 +179,24 @@ public class MyLinkedList {
     *@param other Second list that is added to the end of the first
     */
   public void extend(MyLinkedList other) {
-    this.end.setNext(other.start); //links two lists
-    other.start.setPrev(this.end);
-    this.end = other.end; //changes end of first list
-    this.length = this.length + other.length; //changes size of first list
-    other.length = 0; //length of second list is 0
+    if (this.size() == 0) {
+      int index = 0;
+      int l = other.length;
+      while (l != 0) {
+        this.add(index, other.getNthNode(index).getData());
+        index++;
+        l--;
+      }
+      this.length = other.length; //changes size of first list
+      other.length = 0; //length of second list is 0
+    }
+    else {
+      this.end.setNext(other.start); //links two lists
+      other.start.setPrev(this.end);
+      this.end = other.end; //changes end of first list
+      this.length = this.length + other.length; //changes size of first list
+      other.length = 0; //length of second list is 0
+    }
   }
 
   /**Returns list of nodes as a string.
