@@ -119,28 +119,27 @@ public class MyLinkedList {
   /**Removes element at particular index.
     *@param index  index of element you're removing
     */
-  private void baseRemove (int index) { //both removes will have this
-    Node x = getNthNode(index); //node you are removing
+  private void baseRemove (Node x, int index) { //both removes will have this
     if (size() == 1) { //if list only has 1 element (one you're removing)
       start = null;//no start
       end = null;//no end
     }
     else { //if list is longer than 1
       if (index == 0) { //if removing the start
-        Node y = getNthNode(index+1); //second node in current list
+        Node y = x.prev();//second node in current list
         y.setPrev(null); //disconnect the first node from the second node
         x.setNext(null);
         start = y; //make the second node the start
       }
       else if (index == size()-1) { //if removing the end
-        Node y = getNthNode(index-1); //second to last node
+        Node y = x.prev(); //second to last node
         x.setPrev(null); //disconnect the last node from the second to last node
         y.setNext(null);
         end = y; //the end the second to last node
       }
       else {
-        Node y = getNthNode(index-1); //node before
-        Node z = getNthNode(index+1); //node after
+        Node y = x.prev(); //node before
+        Node z = x.next(); //node after
         x.setPrev(null); //connect the node before and node after node bing removed
         x.setNext(null);
         y.setNext(z);
@@ -158,7 +157,7 @@ public class MyLinkedList {
     }
     Node x = getNthNode(index); //node being removed
     Integer old = x.getData(); //save value being removed
-    baseRemove(index); //remove node
+    baseRemove(x, index); //remove node
     return old; //return removed value
   }
   /**Removes first instance of given value.
@@ -171,7 +170,8 @@ public class MyLinkedList {
     }
     else {
       int index = indexOf(value); //find index of value
-      baseRemove(index); //remove the node at the index
+      Node x = getNthNode(index);
+      baseRemove(x, index); //remove the node at the index
     }
     return true;
   }
