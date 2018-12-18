@@ -97,30 +97,23 @@ public class MyLinkedList {
     if (index < 0 || index > size()) {
       throw new IndexOutOfBoundsException("Index is out of range");
     }
-    if (size() == 0) {
-      add(value); //if the list is empty, just add the element
+    if (index == size()) {
+      add(value);
     }
-    else { //if list has at least 1 element
-      if (index == 0) { //if you're adding to the start
-        Node x = getNthNode(index); //current first node
-        Node A = new Node(null, value, x);
-        x.setPrev(A); //make the current first node's previous the new node
-        start = A; //change the start to the new element
-      }
-      else if (index == size()) { //if you're adding to the end
-        Node x = getNthNode(index-1); //current last node
-        Node A = new Node(x, value, null);
-        x.setNext(A);//make the current last node's next the new node
-        end = A; //cjange the end to the new element
-      }
-      else {
-        Node x = getNthNode(index); //node before new node
-        Node y = getNthNode(index-1); //node after new node
-        Node A = new Node(y, value, x);
-        x.setPrev(A); //link the node before new node and new node
-        y.setNext(A); //link the node after new node and new node
-      }
-      length ++;
+    else if (index == 0) {
+      Node x = getNthNode(index); //current first node
+      Node A = new Node(null, value, x);
+      x.setPrev(A); //make the current first node's previous the new node
+      start = A; //change the start to the new element
+      length++;
+    }
+    else {
+      Node x = getNthNode(index); //node before new node
+      //Node y = getNthNode(index-1); //node after new node
+      Node A = new Node(x.prev(), value, x);
+      x.prev().setNext(A); //link the node after new node and new node
+      x.setPrev(A); //link the node before new node and new node
+      length++;
     }
   }
   /**Removes element at particular index.
